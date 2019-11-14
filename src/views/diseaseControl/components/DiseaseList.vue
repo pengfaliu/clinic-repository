@@ -49,7 +49,7 @@ export default {
   name: 'DiseaseList',
   data () {
     return {
-
+      msg: ''
     }
   },
   props: {
@@ -66,7 +66,7 @@ export default {
 
 <style scoped lang="scss">
 .diseaseList {
-  height: 100%;
+  height: 90%;
   .el-table {
     margin-top: 10px;
     border: 1px solid #EBEEF5;

@@ -233,16 +233,18 @@ const routes = [
           icon: '&#xe648;'
         }
       }, {
-        path: 'rightdiagnosis',
-        name: 'rightdiagnosis',
+        path: 'therapy',
+        name: 'therapy',
+        component: () => import('@/views/therapy'),
         meta: {
           title: '诊疗信息',
           requireAuth: true,
           icon: '&#xe652;'
         }
       }, {
-        path: 'abstractquery',
-        name: 'abstractquery',
+        path: 'abstract',
+        name: 'abstract',
+        component: () => import('@/views/abstract'),
         meta: {
           title: '参考文献',
           requireAuth: true,
@@ -281,6 +283,7 @@ const routes = [
       {
         path: 'western',
         name: 'western',
+        component: () => import('@/views/pearlandx'),
         meta: {
           title: '西医辅助诊疗',
           requireAuth: true,
@@ -289,6 +292,7 @@ const routes = [
       }, {
         path: 'chinese',
         name: 'chinese',
+        component: () => import('@/views/pearlandz'),
         meta: {
           title: '中医辅助诊疗',
           requireAuth: true,
@@ -323,6 +327,15 @@ const routes = [
     component: () => import('@/views/login'),
     meta: {
       title: '登录',
+      requireAuth: false,
+      hide: true
+    }
+  }, {
+    path: '/registers',
+    name: 'registers',
+    component: () => import('@/views/login/register'),
+    meta: {
+      title: '注册',
       requireAuth: false,
       hide: true
     }

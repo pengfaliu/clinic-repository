@@ -50,6 +50,8 @@ export default {
   height: 100%;
   padding: 10px 20px;
   position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
   .addDisease {
     transition: all ease 0.2s;
     position: absolute;

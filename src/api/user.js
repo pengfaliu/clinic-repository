@@ -8,3 +8,12 @@ export function userLogin(userInfo) {
     data: userInfo
   })
 }
+
+// test
+export function test(userInfo) {
+  return request ({
+    url: '/',
+    method: 'get',
+    data: userInfo
+  })
+}

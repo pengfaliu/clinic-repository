@@ -89,7 +89,7 @@ export default {
       })
     },
     register () {
-      
+      this.$router.push({path: '/registers'})
     },
     reset (loginInfo) {
       this.loginInfo = {

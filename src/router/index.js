@@ -9,18 +9,19 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  // base: 'clinic',
+  // base: '/yiyuan/',
   routes
 })
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
+  console.log(to)
   if (to.meta.title) {
     document.title = to.meta.title + ' | 医苑'
   }
   if (to.matched.length === 0) {
     next('/notpage')
-  } else if (!to.meta.requireAuth || to.path === '/login') {
+  } else if (!to.meta.requireAuth) {
     next()
   } else {
     if (getStore({name: 'token'})) {
