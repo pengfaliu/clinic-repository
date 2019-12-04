@@ -1,43 +1,60 @@
 <template>
   <div class="diseaseList">
     <el-table
+      ref="table"
       :data="lists"
       :header-cell-style="{background:'#f5f5f5'}"
-      stripe>
+      stripe
+      @row-click="rowClick"
+      v-loading="loading"
+      height="100%">
       <el-table-column
         type="selection"
-        width="55">
-      </el-table-column>
-      <!-- <el-table-column
-        type="index"
         width="50">
-      </el-table-column> -->
-      <el-table-column
-        label="药品名称"
-        prop="name">
       </el-table-column>
       <el-table-column
-        label="名称2"
-        prop="data1">
+        type="index"
+        label="#"
+        width="50px">
       </el-table-column>
       <el-table-column
-        label="名称3"
-        prop="data2">
+        prop="fmedSpecID"
+        label="药品ID">
       </el-table-column>
       <el-table-column
-        label="名称4"
-        prop="data3">
+        prop="forder"
+        label="序号">
       </el-table-column>
       <el-table-column
-        label="名称5"
-        prop="data4">
+        prop="fnumber"
+        label="药品编码">
+      </el-table-column>
+      <el-table-column
+        prop="fmedSpecName"
+        label="名称">
+      </el-table-column>
+      <el-table-column
+        prop="falias"
+        label="别名">
+      </el-table-column>
+      <el-table-column
+        prop="fspec"
+        label="规格">
+      </el-table-column>
+      <el-table-column
+        prop="funit"
+        label="单位">
+      </el-table-column>
+      <el-table-column
+        prop="fmedDosage"
+        label="剂型">
       </el-table-column>
       <el-table-column
         label="操作"
         width="100">
-        <template>          
-          <el-link type="primary" :underline="false" @click="editInfo">编辑</el-link>
-          <el-link type="danger" :underline="false">删除</el-link>
+        <template slot-scope="{ row }">
+          <el-link type="primary" :underline="false" @click.native="editInfo(row)">编辑</el-link>
+          <el-link type="danger" :underline="false" @click.native="delDisease(row.fdiseaseID)">删除</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -54,11 +71,19 @@ export default {
   },
   props: {
     lists: Array,
-    message: ''
+    message: '',
+    loading: Boolean
   },
   methods: {
-    editInfo () {
-      this.$parent.addInfo()
+    // 删除
+    delDisease (id) {
+      console.log(id)
+    },
+    editInfo (row) {
+      this.$parent.addInfo(row)
+    },
+    rowClick (row) {
+      this.$refs.table.toggleRowSelection(row);
     }
   }
 }
@@ -68,7 +93,6 @@ export default {
 .diseaseList {
   height: 90%;
   .el-table {
-    margin-top: 10px;
     border: 1px solid #EBEEF5;
     border-bottom: 0 none;
   }

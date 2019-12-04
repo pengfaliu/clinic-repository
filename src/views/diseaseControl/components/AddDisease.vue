@@ -3,18 +3,18 @@
     <div class="close" title="关闭" @click="addClose"><i class="el-icon-caret-right"></i></div>
     <div class="content">
       <div class="header">
-        <h2>{{ title }}</h2>
+        <h2>{{ title }} | {{ addEditFlag }}</h2>
         <el-link v-show="!tepFlag" :underline="false" @click="isAdd"><i class="el-icon-circle-plus-outline">新增说明</i></el-link>
       </div>
       <div class="detail">
         <el-scrollbar>
-          <base-info v-show="tepFlag"></base-info>
+          <base-info ref="infochild" @changeInfo="changeInfo" v-show="tepFlag" :diseaseTypeLists="diseaseTypeLists"></base-info>
           <product-line v-show="!tepFlag" :addFlag="addFlag" @setAddFlag="setAddFlag"></product-line>
         </el-scrollbar>
       </div>
       <div class="footer">
-        <el-button :size="size" type="primary" @click="tepClick">{{ tepMessage }}</el-button>
-        <el-button :size="size" type="success" @click="reset">{{ finishFlag }}</el-button>
+        <el-button :size="size" type="primary" @click="reset(medForm)">{{ tepMessage }}</el-button>
+        <el-button :size="size" type="success" @click="save">{{ finishFlag }}</el-button>
       </div>
     </div>
   </div>
@@ -23,23 +23,34 @@
 <script>
 import BaseInfo from './BaseInfo'
 import ProductLine from './ProductLine'
+import { updateMed } from '@/api/medicine'
 export default {
   name: 'AddDisease',
-  components: {BaseInfo, ProductLine},
+  components: { BaseInfo, ProductLine },
   data () {
     return {
       size: 'mini',
       tepFlag: true,
-      tepMessage: '下一步',
+      tepMessage: '重置',
       finishFlag: '保存',
       title: '基础信息',
+      addEditFlag: '新增',
       addFlag: false
     }
   },
   props: {
-    addShow: Boolean
+    addShow: Boolean,
+    diseaseTypeLists: Array
   },
   methods: {
+    setRow (row) {
+      if (row === '新增') {
+        this.addEditFlag = '新增'
+      } else {
+        this.addEditFlag = '修改（' + row.fmedSpecID + '）'
+        this.$refs.infochild.setRow(row)
+      }
+    },
     isAdd () {
       this.addFlag = true
     },
@@ -48,15 +59,27 @@ export default {
     },
     addClose () {
       this.$parent.closeAdd()
+      this.$refs.infochild.resetForm()
     },
-    tepClick () {
-      this.tepFlag = !this.tepFlag
-      this.tepMessage = this.tepMessage === '下一步' ? '上一步' : '下一步'
-      this.finishFlag = this.finishFlag === '保存' ? '完成' : '保存'
-      this.title = this.title === '基础信息' ? '生产厂家说明' : '基础信息'
+    changeInfo () {
+      this.title = "生产厂家"
+      this.tepFlag = false
+      this.finishFlag = "完成"
     },
-    reset () {
-
+    reset (formName) {
+      this.$refs.infochild.resetForm()
+    },
+    save () {
+      if (this.finishFlag === "保存") {
+        this.$refs.infochild.submitForm()
+      } else {
+        this.title = "基础信息"
+        this.tepFlag = true
+        this.finishFlag = "保存"
+        this.addFlag = false
+        this.$parent.closeAdd()
+        this.$refs.infochild.resetForm()
+      }
     }
   }
 }
@@ -66,17 +89,18 @@ export default {
 .addDisease {
   position: relative;
   .close {
-    height: 60px;
-    line-height: 60px;
-    cursor: pointer;
+    height: 100px;
+    line-height: 100px;
     border-radius: 5px 0 0 5px;
+    cursor: pointer;
     background-color: rgb(64, 158, 255);
     position: absolute;
     right: 0;
     top: 45%;
     i {
       color: #fff;
-      padding: 0;
+      padding: 0 8px;
+      font-size: 26px;
       margin: 0;
     }
   }

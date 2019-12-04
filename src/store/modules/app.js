@@ -6,7 +6,8 @@ const app = {
       withoutAnimation: false
     },
     fontsize: Cookies.get('fontsize') || '14px',
-    skin: Cookies.get('skin') || '{ "name": "#409eff", "label": "默认", "icon": "#fff"  }'
+    skin: Cookies.get('skin') || '{ "name": "#409eff", "label": "默认", "icon": "#fff"  }',
+    loading: false
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -31,6 +32,9 @@ const app = {
       skin = JSON.stringify(skin)
       Cookies.set('skin', skin)
       state.skin = skin
+    },
+    SET_LOADING: (state, loading) => {
+      state.loading = loading
     }
   },
   actions: {
@@ -45,6 +49,9 @@ const app = {
     },
     SetSkin ({ commit }, skin) {
       commit('SET_SKIN', skin)
+    },
+    SetLoading ({ commit }, loading) {
+      commit('SET_LOADING', loading)
     }
   }
 }

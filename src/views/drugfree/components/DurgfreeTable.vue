@@ -1,7 +1,7 @@
 <template>
   <div class="tableInfo">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item v-for="breadcrumb in breadcrumbList" :key="breadcrumb">{{ breadcrumb }}</el-breadcrumb-item>
+      <el-breadcrumb-item v-for="(breadcrumb, index) in breadcrumbList" :key="index">{{ breadcrumb }}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="tableSearch">
       <div class="search">
@@ -14,60 +14,105 @@
     </div>
     <div class="container">
       <el-table
+        v-loading="loading"
         :data="tableData"
         stripe
         :highlight-current-row="highlightCurrentRow"
         :header-cell-style="{background:'#f5f5f5'}"
         height="100%">
         <el-table-column
-          prop="type"
-          label="类型"
-          min-width="9%">
+          type="index"
+          label="#"
+          width="50px">
         </el-table-column>
         <el-table-column
-          prop="sort"
-          label="类别"
-          min-width="9%">
+          prop="forder"
+          label="序号">
         </el-table-column>
         <el-table-column
-          prop="num"
-          label="编码"
-          min-width="9%">
+          prop="fnumber"
+          label="药品编码">
         </el-table-column>
         <el-table-column
-          prop="order"
-          label="次序"
-          min-width="8%">
+          prop="fspec"
+          label="规格">
         </el-table-column>
         <el-table-column
-          label="名称"
-          min-width="9%">
+          prop="funit"
+          label="单位">
+        </el-table-column>
+        <el-table-column
+          label="药品名称">
           <template slot-scope="{ row }">
-            <span @click="viewDetail(row)" title="查看详情">{{ row.name }}</span>
+            <span @click="viewDetail(row)" title="查看详情">{{ row.fmedSpecName }}</span>
           </template>
         </el-table-column>
         <el-table-column
-          prop="spec"
-          label="规格"
-          min-width="9%">
+          prop="falias"
+          label="别名">
         </el-table-column>
         <el-table-column
-          prop="base"
-          label="基本药物"
-          min-width="9%">
+          prop="fmedDosage"
+          label="剂型">
         </el-table-column>
         <el-table-column
-          prop="anti"
-          label="是否抗菌"
-          min-width="9%">
+          prop="fshape"
+          label="形态">
         </el-table-column>
         <el-table-column
-          prop="vender"
-          label="厂家"
-          min-width="9%">
+          prop="fcharacter"
+          label="性状">
         </el-table-column>
         <el-table-column
-          min-width="20%">
+          prop="fcomposition"
+          label="成分">
+        </el-table-column>
+        <el-table-column
+          prop="fpharmacologicalEffects"
+          label="药理作用">
+        </el-table-column>
+        <el-table-column
+          prop="fprocessingDrugs"
+          label="炮制">
+        </el-table-column>
+        <el-table-column
+          prop="fflavor"
+          label="性味">
+        </el-table-column>
+        <el-table-column
+          prop="fchannelTropism"
+          label="归经">
+        </el-table-column>
+        <el-table-column
+          prop="ffunction"
+          label="功能">
+        </el-table-column>
+        <el-table-column
+          prop="findications"
+          label="主治">
+        </el-table-column>
+        <el-table-column
+          prop="fclassTypeID"
+          label="类型">
+        </el-table-column>
+        <el-table-column
+          prop="fnote"
+          label="注意事项">
+        </el-table-column>
+        <el-table-column
+          prop="fdosage"
+          label="临床应用">
+        </el-table-column>
+        <el-table-column
+          prop="fclinicalPractice"
+          label="用法用量">
+        </el-table-column>
+        <el-table-column
+          prop="fprescribingExamples"
+          label="处方举例">
+        </el-table-column>
+        <el-table-column
+          width="300px">
           <template>
             <el-badge :value="120000" :max="999" class="item">
               <el-button size="mini" type="primary">评论</el-button>
@@ -82,15 +127,17 @@
         </el-table-column>
       </el-table>
     </div>
+    <paging :pagination="pagination" @setCurrentPage="setCurrentPage" @setPageSize="setPageSize"></paging>
     <item-detail :dialogVisible="dialogVisible" :tableRow="tableRow"></item-detail>
   </div>
 </template>
 
 <script>
 import ItemDetail from '@/components/ItemDetail'
+import paging from '@/components/paging'
 export default {
   name: 'TableInfo',
-  components: { ItemDetail },
+  components: { ItemDetail, paging },
   data () {
     return {
       size: 'mini',
@@ -103,19 +150,29 @@ export default {
   },
   props: {
     breadcrumbList: Array,
-    tableData: Array
+    tableData: Array,
+    loading: Boolean,
+    pagination: Object
   },
   methods: {
     viewDetail (row) {
+      console.log(row)
       // this.dialogVisible = true
       // this.tableRow = row
-      
     },
     spanClick (word) {
       this.wordCur = word
     },
     closeDialog () {
       this.dialogVisible = false
+    },
+    // 设置当前显示页码
+    setCurrentPage (currentPage) {
+      this.$parent.setCurrentPage(currentPage)
+    },
+    // 设置每页显示条数
+    setPageSize (pageSize) {
+      this.$parent.setPageSize(pageSize)
     }
   }
 }

@@ -1,15 +1,15 @@
 import axios from 'axios'
 
 const service = axios.create({
-  baseURL: process.env.BASE_API,
-  baseURL: 'http://127.0.0.1:3000/api',
+  baseURL: 'http://192.168.1.15:4000',
   timeout: 10000
 })
 
 service.interceptors.request.use(config => {
   config.headers = {
-    
+    'content-type': 'application/json; charset=utf-8'
   }
+  // console.log(config)
   return config
 }, error => {
   return Promise.reject(error)

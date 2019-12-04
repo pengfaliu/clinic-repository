@@ -4,6 +4,7 @@ const getters = {
   fontsize: state => state.app.fontsize,
   historyTabs: state => state.common.historyTabs,
   historyList: state => state.common.historyList,
-  skin: state => JSON.parse(state.app.skin)
+  skin: state => JSON.parse(state.app.skin),
+  loading: state => state.app.loading
 }
 export default getters

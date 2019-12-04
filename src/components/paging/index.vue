@@ -1,13 +1,14 @@
 <template>
   <div class="paging">
     <el-pagination
+      v-if="pagination"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
+      :current-page="pagination.currentPage"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="pagination.pagesize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="pagination.total">
     </el-pagination>
   </div>
 </template>
@@ -20,12 +21,15 @@ export default {
       currentPage: 4
     }
   },
+  props: {
+    pagination: Object
+  },
   methods: {
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      this.$emit("setPageSize", val)
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      this.$emit("setCurrentPage", val)
     }
   }
 }

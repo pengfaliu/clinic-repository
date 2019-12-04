@@ -62,7 +62,7 @@ export default {
     this.$nextTick(() => {
       var el = document.querySelector('.diseaseDetail .el-scrollbar .el-scrollbar__wrap')
       el.addEventListener('scroll', function () {
-        console.log(document.querySelector('.diseaseDetail .el-scrollbar .el-scrollbar__wrap').scrollTop)
+        // console.log(document.querySelector('.diseaseDetail .el-scrollbar .el-scrollbar__wrap').scrollTop)
       }, false)
     })
   },

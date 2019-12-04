@@ -35,8 +35,8 @@
       <div class="explain">按点击顺序成文</div>
       <div class="content">
         <div class="otherLi">
-          <span style="font-size: 12px;" @click="selectText('左上肢', data4)">左上肢</span>
-          <span style="font-size: 12px;" @click="selectText('右上肢', data4)">右上肢</span>
+          <span style="font-size: 12px;" @click="selectTextOt('左上肢', data4)">左上肢</span>
+          <span style="font-size: 12px;" @click="selectTextOt('右上肢', data4)">右上肢</span>
         </div>
         <ul>
           <li v-for="d in datas1" :key="d" @click="selectText(d, data4)">{{ d }}</li>
@@ -78,6 +78,14 @@ export default {
   methods: {
     changeVisible () {
       this.$emit('closeVisible', 'complaintVisible4')
+    },
+    selectTextOt (d, arr) {
+      if (arr.length > 0) {
+        arr.push('mmHg ' + d)
+      } else {
+        arr.push(d)
+      }
+      this.setListData()
     },
     selectText (d, arr) {
       arr.push(d)

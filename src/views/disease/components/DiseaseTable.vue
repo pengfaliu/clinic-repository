@@ -1,7 +1,7 @@
 <template>
   <div class="tableInfo">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item v-for="breadcrumb in breadcrumbList" :key="breadcrumb">{{ breadcrumb }}</el-breadcrumb-item>
+      <el-breadcrumb-item v-for="(breadcrumb, index) in breadcrumbList" :key="index">{{ breadcrumb }}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="tableSearch">
       <div class="search">
@@ -15,22 +15,28 @@
     <div class="container">
       <el-table
         :data="tableData"
+        v-loading="tableLoading"
         stripe
         :highlight-current-row="highlightCurrentRow"
         :header-cell-style="{background:'#f5f5f5'}"
         height="100%">
         <el-table-column
-          prop="type"
+          type="index"
+          label="#"
+          width="50px">
+        </el-table-column>
+        <el-table-column
+          prop="fpy"
           label="类型"
           min-width="10%">
         </el-table-column>
         <el-table-column
-          prop="sort"
+          prop="fsyndromeDifferentiationTreatment"
           label="类别"
           min-width="10%">
         </el-table-column>
         <el-table-column
-          prop="num"
+          prop="fdiseaseNumber"
           label="编码"
           min-width="15%">
         </el-table-column>
@@ -38,16 +44,16 @@
           label="名称"
           min-width="20%">
           <template slot-scope="{ row }">
-            <span @click="viewDetail(row)" title="查看详情">{{ row.name }}</span>
+            <span @click="viewDetail(row)" title="查看详情">{{ row.fdiseaseName }}</span>
           </template>
         </el-table-column>
         <el-table-column
-          prop="detail"
+          prop="fgeneralSituation"
           label="详细信息"
           min-width="25%">
         </el-table-column>
         <el-table-column
-          min-width="20%">
+          width="290px">
           <template>
             <el-badge :value="120000" :max="999" class="item">
               <el-button size="mini" type="primary">评论</el-button>
@@ -62,15 +68,17 @@
         </el-table-column>
       </el-table>
     </div>
+    <paging :pagination="pagination" @setCurrentPage="setCurrentPage" @setPageSize="setPageSize"></paging>
     <item-detail :dialogVisible="dialogVisible" :tableRow="tableRow"></item-detail>
   </div>
 </template>
 
 <script>
 import ItemDetail from '@/components/ItemDetail'
+import paging from '@/components/paging'
 export default {
   name: 'TableInfo',
-  components: { ItemDetail },
+  components: { ItemDetail, paging },
   data () {
     return {
       size: 'mini',
@@ -83,11 +91,15 @@ export default {
   },
   props: {
     breadcrumbList: Array,
-    tableData: Array
+    tableData: Array,
+    tableLoading: Boolean,
+    pagination: Object
   },
   methods: {
+    // 查看疾病详情
     viewDetail (row) {
       // this.dialogVisible = true
+      console.log(row)
       this.tableRow = row
       this.$store.dispatch('SetHistory', row)
       // this.$router.push({name: 'info', params: {id: row.id}})
@@ -97,6 +109,14 @@ export default {
     },
     closeDialog () {
       this.dialogVisible = false
+    },
+    // 设置当前显示页码
+    setCurrentPage (currentPage) {
+      this.$parent.setCurrentPage(currentPage)
+    },
+    // 设置每页显示条数
+    setPageSize (pageSize) {
+      this.$parent.setPageSize(pageSize)
     }
   }
 }

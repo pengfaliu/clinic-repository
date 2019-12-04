@@ -1,5 +1,6 @@
 <template>
   <div class="enterning">
+    <doctor-info></doctor-info>
     <el-row>
       <el-col :span="2">主诉：</el-col>
       <el-col :span="22">
@@ -10,10 +11,10 @@
           trigger="click">
           <complaint @closeVisible="closeCurVisible" @setData1="setData1"></complaint>
           <div class="edit" contenteditable="true" slot="reference">
-            {{ data11 }}
-            {{ data12 }}
-            {{ data13 }}
-            {{ data14 }}
+            <span :class="data11 === '' ? 'noText' : ''">{{ data11 || '[通用特征]' }}</span>
+            <span :class="data12 === '' ? 'noText' : ''">{{ data12 || '[主诉]' }}</span>
+            <span :class="data13 === '' ? 'noText' : ''">{{ data13 || '[症状]' }}</span>
+            <span :class="data14 === '' ? 'noText' : ''">{{ data14 || '[时间]' }}</span>
           </div>
         </el-popover>
       </el-col>
@@ -75,12 +76,12 @@
           trigger="click">
           <others @closeVisible="closeCurVisible" @setData3="setData3"></others>
           <div class="edit" contenteditable="true" slot="reference" @click="changeD3Show">
-            <span> {{ data31 }} </span>
-            <span> {{ data32 }} </span>
-            <span> {{ data33 }} </span>
-            <span> {{ data34 }} </span>
-            <span> {{ data35 }} </span>
-            <span> {{ data36 }} </span>
+            <span :class="data31 === '' ? 'noText' : ''"> {{ data31 || '[既往史]' }} </span>
+            <span :class="data32 === '' ? 'noText' : ''"> {{ data32 || '[过敏史]' }} </span>
+            <span :class="data33 === '' ? 'noText' : ''"> {{ data33 || '[个人史]' }} </span>
+            <span :class="data34 === '' ? 'noText' : ''"> {{ data34 || '[婚姻史]' }} </span>
+            <span :class="data35 === '' ? 'noText' : ''"> {{ data35 || '[家族史]' }} </span>
+            <span :class="data36 === '' ? 'noText' : ''"> {{ data36 || '[家族相关传染病史]' }} </span>
           </div>
         </el-popover>
       </el-col>
@@ -93,11 +94,11 @@
           trigger="click">
           <checkup @closeVisible="closeCurVisible" @setData4="setData4"></checkup>
           <div class="edit" contenteditable="true" slot="reference" @click="changeD4Show">
-            <span v-show="data41.trim()">体温 {{ data41 || '[时间]' }} ℃， </span>
-            <span v-show="data42.trim()">脉搏 {{ data42 || '[脉搏]' }} 次/分， </span>
-            <span v-show="data43.trim()">呼吸 {{ data43 || '[呼吸]' }} 次/分， </span>
-            <span v-show="data44.trim()">部位（收缩压） {{ data44 || '[部位（收缩压）]' }} mmHg，</span>
-            <span v-show="data45.trim()">舒张压 {{ data45 || '[舒张压]' }} mmHg</span>
+            <span :class="data41 === '' ? 'noText' : ''">体温 {{ data41 || '[填写]' }} ℃， </span>
+            <span :class="data42 === '' ? 'noText' : ''">脉搏 {{ data42 || '[填写]' }} 次/分， </span>
+            <span :class="data43 === '' ? 'noText' : ''">呼吸 {{ data43 || '[填写]' }} 次/分， </span>
+            <span :class="data44 === '' ? 'noText' : ''">部位（收缩压） {{ data44 || '[填写]' }} mmHg，</span>
+            <span :class="data45 === '' ? 'noText' : ''">舒张压 {{ data45 || '[填写]' }} mmHg</span>
           </div>
         </el-popover>
       </el-col>
@@ -134,6 +135,7 @@
 </template>
 
 <script>
+import DoctorInfo from './DoctorInfo/index'
 import complaint from './Hovering/complaint'
 import record from './Hovering/record'
 import recordchild from './Hovering/recordchild'
@@ -144,7 +146,7 @@ import assay from './assay/index'
 import assist from './assist/index'
 export default {
   name: 'PearlangxEntering',
-  components: { complaint, record, recordchild, others, checkup, diagnose, assay, assist },
+  components: { DoctorInfo, complaint, record, recordchild, others, checkup, diagnose, assay, assist },
   data () {
     return {
       size: 'small',

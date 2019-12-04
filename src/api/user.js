@@ -1,11 +1,13 @@
 import request from '@/request'
 
-// 用户登录
-export function userLogin(userInfo) {
+const baseURL = "/userService/"
+
+// 查询所有人员列表
+export function userList() {
   return request ({
-    url: '/login',
+    url: baseURL + 'queryUserList',
     method: 'POST',
-    data: userInfo
+    data: {}
   })
 }
 

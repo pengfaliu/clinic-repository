@@ -40,6 +40,7 @@ const routes = [
       }, {
         path: 'departments',
         name: 'departments',
+        component: () => import('@/views/group'),
         meta: {
           title: '科室管理',
           requireAuth: true,
@@ -48,6 +49,7 @@ const routes = [
       }, {
         path: 'personnel',
         name: 'personnel',
+        component: () => import('@/views/user'),
         meta: {
           title: '人员管理',
           requireAuth: true,
@@ -86,15 +88,16 @@ const routes = [
         name: 'disease',
         component: () => import('@/views/diseaseControl'),
         meta: {
-          title: '疾病用药库',
+          title: '药品知识库',
           requireAuth: true,
           icon: '&#xe66b;'
         }
       }, {
         path: 'bulletin',
         name: 'bulletin',
+        component: () => import('@/views/drugfreeControl'),
         meta: {
-          title: '药品知识库',
+          title: '疾病用药库',
           requireAuth: true,
           icon: '&#xe604;'
         }

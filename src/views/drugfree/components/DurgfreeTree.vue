@@ -1,12 +1,16 @@
 <template>
   <div class="treeInfo">
     <el-scrollbar>
-      <el-collapse @change="changeCollapse" accordion v-model="curCol" v-if="treeData">
-        <el-collapse-item v-for="(data, index) in treeData" :key="index" :title="data.fname" :name="data.fdiseaseTypeID">
-          <el-row>
-            <el-col :md="24" :lg="12" :xl="8" v-for="(item, index) in data.childrens" :key="index"><div :class="treeFlag === item.fdiseaseTypeID ? 'treeHover' : ''" @click="treeClick(data.fname, item.fname, item.fdiseaseTypeID)">{{ item.fname }}</div></el-col>
-          </el-row>
-        </el-collapse-item>
+      <el-collapse @change="changeCollapse" accordion v-if="treeData">
+        <template v-for="(data, index) in treeData">
+          <el-collapse-item :key="index"  v-if="data.childrens && data.childrens.length > 0" :title="data.fname" :name="data.directoryID">
+            <el-row>
+              <el-col :md="24" :lg="12" :xl="8" v-for="item in data.childrens" :key="item.directoryID"><div :class="treeFlag === item.directoryID ? 'treeHover' : ''" @click="treeClick(data.fname, item.fname, item.directoryID)">{{ item.fname }}</div></el-col>
+            </el-row>
+          </el-collapse-item>
+          <el-collapse-item :key="index" v-else :title="data.fname" :name="data.fname + '-' + data.directoryID" class="noChild">
+          </el-collapse-item>
+        </template>
       </el-collapse>
     </el-scrollbar>
   </div>
@@ -17,8 +21,7 @@ export default {
   name: 'TreeInfo',
   data () {
     return {
-      treeFlag: 9,
-      curCol: 1
+      treeFlag: ''
     }
   },
   props: {
@@ -27,15 +30,17 @@ export default {
   },
   methods: {
     handleNodeClick (data) {
-      
     },
     treeClick (title, item, id) {
       this.$parent.setBreadcrumbList([title, item])
-      this.$parent.setFDiseaseTypeID(id)
+      this.$parent.setDirectoryID(id)
       this.treeFlag = id
     },
     changeCollapse (val) {
-
+      if (typeof(val) !== 'number') {
+        this.$parent.setDirectoryID(parseInt(val.split("-")[1]))
+        this.$parent.setBreadcrumbList([val.split("-")[0]])
+      }
     }
   }
 }
@@ -53,15 +58,14 @@ export default {
   .el-row {
     // background-color: #f0f3f8;
     .el-col {
-      font-size: 12px;
       div {
         height: 30px;
         line-height: 28px;
         text-align: center;
-        padding: 0 4px;
         border: 1px solid #409eff;
         color: #409eff;
         margin: 5px 2px;
+        padding: 0 4px;
         overflow: hidden;
         text-overflow:ellipsis;
         white-space: nowrap;
@@ -90,6 +94,14 @@ export default {
 }
 .el-collapse-item__content {
   padding-bottom: 0!important;
+}
+.el-collapse-item .el-collapse-item__header {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.treeInfo .noChild i {
+  display: none!important;
 }
 .treeInfo .el-scrollbar__wrap {
   overflow-x: hidden;

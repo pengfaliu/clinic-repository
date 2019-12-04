@@ -4,7 +4,7 @@
     <div class="main-container">
       <navbar></navbar>
       <tags-view></tags-view>
-      <app-main></app-main>
+      <app-main v-loading="loading"></app-main>
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
   name: 'layout',
   components: { Navbar, Sidebar, AppMain, TagsView },
   computed: {
-    ...mapGetters(['sidebar'])
+    ...mapGetters(['sidebar', 'loading'])
   }
 }
 </script>
