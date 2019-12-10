@@ -11,6 +11,15 @@ export function userList() {
   })
 }
 
+// 保存、修改人员信息
+export function saveUser (req) {
+  return request ({
+    url: baseURL + 'saveUser',
+    method: 'POST',
+    data: req
+  })
+}
+
 // test
 export function test(userInfo) {
   return request ({

@@ -1,7 +1,7 @@
 <template>
   <div class="groupHeader">
     <el-button type="danger" :size="size">删除</el-button>
-    <el-button type="primary" :size="size">新增</el-button>
+    <el-button type="primary" :size="size" @click="add">新增</el-button>
     <div class="query">
       <el-input :size="size" placeholder="请输入搜索内容"></el-input>
     </div>
@@ -15,6 +15,13 @@ export default {
   data () {
     return {
       size: "mini"
+    }
+  },
+  methods: {
+    add () {
+      this.$store.dispatch('SetGroupDialog', true)
+      this.$store.dispatch('SetGroupForm', {})
+      this.$store.dispatch('SetGroupTitle', '新增科室')
     }
   }
 }

@@ -18,10 +18,6 @@
         width="50px">
       </el-table-column>
       <el-table-column
-        prop="fmedSpecID"
-        label="药品ID">
-      </el-table-column>
-      <el-table-column
         prop="forder"
         label="序号">
       </el-table-column>

@@ -3,40 +3,48 @@
     <el-table
       :data="userList"
       :size="size"
-      v-loading="loading">
+      v-loading="loading"
+      height="100%">
       <el-table-column
         type="selection"
-        width="55">
+        width="50">
       </el-table-column>
       <el-table-column
         type="index"
         label="#"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="fcreateuserID"
-        label="fcreateuserID"
-        width="180">
+        width="50">
       </el-table-column>
       <el-table-column
         prop="fname"
-        label="fname"
-        width="180">
+        label="名称">
+      </el-table-column>
+      <el-table-column
+        prop="mechanismName"
+        label="所属机构">
+      </el-table-column>
+      <el-table-column
+        prop="fgroupName"
+        label="所属科室">
       </el-table-column>
       <el-table-column
         prop="fnumber"
-        label="fnumber"
-        width="180">
+        label="编码">
       </el-table-column>
       <el-table-column
-        prop="fuserid"
-        label="fuserid"
-        width="180">
+        prop="fjob"
+        label="职务">
       </el-table-column>
       <el-table-column
-        prop="fcreateDate"
-        label="fcreateDate"
-        min-width="180">
+        prop="ftype"
+        label="类型">
+      </el-table-column>
+      <el-table-column
+        label="操作"
+        width="100px">
+        <template slot-scope="{ row }">
+          <el-link :underline="false" type="primary" @click="editUser(row)">编辑</el-link>
+          <el-link :underline="false" type="danger" @click="delUser(row.fuserid)">删除</el-link>
+        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -53,12 +61,22 @@ export default {
   props: {
     userList: Array,
     loading: Boolean
+  },
+  methods: {
+    editUser (data) {
+      this.$store.dispatch('SetUserTitle', '修改人员（' + data.fgroupid + '）')
+      this.$store.dispatch('SetUserDialog', true)
+      this.$store.dispatch('SetUserForm', data)
+    },
+    delUser (id) {
+      console.log(id)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .userList {
-
+  height: 90%;
 }
 </style>>

@@ -32,6 +32,7 @@ const routes = [
       {
         path: 'organizations',
         name: 'organizations',
+        component: () => import('@/views/institution'),
         meta: {
           title: '机构管理',
           requireAuth: true,
