@@ -5,7 +5,7 @@ import routes from './modules/routes'
 import store from '@/store'
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
-import { getStore } from '@/utils/store'
+import { getToken } from '@/utils/auth'
 Vue.use(Router)
 
 const router = new Router({
@@ -19,7 +19,7 @@ router.beforeEach((to, from, next) => {
   store.dispatch('SetLoading', true)
   NProgress.start()
   // loadingInstance = Loading.service({fullscreen: true})
-  console.log(to)
+  // console.log(to)
   if (to.meta.title) {
     document.title = to.meta.title + ' | 医苑'
   }
@@ -28,9 +28,10 @@ router.beforeEach((to, from, next) => {
   } else if (!to.meta.requireAuth) {
     next()
   } else {
-    if (getStore({name: 'token'})) {
+    if (getToken()) {
       next()
     } else {
+      store.dispatch('SetUrl', to.path)
       next('/login')
     }
   }

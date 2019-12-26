@@ -2,21 +2,20 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 import { setStore, getStore, removeStore } from '@/utils/store'
 const user = {
   state: {
-    token: getStore({name: 'token'})
+    token: getToken(),
+    url: ''
   },
   mutations: {
     SET_TOKEN: (state, token) => {
-      setStore({
-        name: 'token',
-        content: token.token,
-        type: false,
-        dateTime: token.checked
-      })
+      setToken(token.token)
       state.token = token.token
     },
     REMOVE_TOKEN: (state) => {
-      removeStore({name: 'token'})
+      removeToken()
       state.token = ''
+    },
+    SET_URL: (state, url) => {
+      state.url = url
     }
   },
   actions: {
@@ -25,6 +24,9 @@ const user = {
     },
     RemoveToken ({ commit }) {
       commit('REMOVE_TOKEN')
+    },
+    SetUrl ({ commit }, url) {
+      commit('SET_URL', url)
     }
   }
 }

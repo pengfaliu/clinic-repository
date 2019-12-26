@@ -1,3 +1,6 @@
+<!--
+- 头部菜单
+-->
 <template>
   <div class="navBar" :style="'background:'+skin.name">
     <div class="sideFlag" :class="sidebar.opened ? '' : 'sideClick'" @click="changeSideStatus"><i class="el-icon-s-fold" :style="'color:'+skin.icon"></i></div>

@@ -183,6 +183,12 @@ export default {
               }
               this.$refs['medForm'].resetFields()
               this.$emit("changeInfo")
+            } else {
+              if (this.medForm.fmedSpecID) {
+                this.$message.error('修改药品失败')
+              } else {
+                this.$message.error('新增药品失败')
+              }
             }
           })
         } else {

@@ -34,6 +34,8 @@ export default {
         this.treeData = res.data.data
         this.setDirectoryID(data[0].childrens.length ? data[0].childrens[0].directoryID : data[0].directoryID)
         this.breadcrumbList = data[0].childrens.length ? [data[0].fname, data[0].childrens[0].fname] : [data[0].fname]
+      } else {
+        this.$message.error("加载药品分类失败")
       }
     })
   },
@@ -48,6 +50,8 @@ export default {
           this.tableData = res.data.data.data.list
           this.pagination = res.data.data.data.pagination
           this.loading = false
+        } else {
+          this.$message.error("加载药品列表失败")
         }
       })
     },

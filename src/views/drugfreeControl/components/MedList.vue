@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import parseTime from '@/utils/parseTime'
 export default {
   name: 'MedList',
   data () {
@@ -68,6 +69,11 @@ export default {
   props: {
     medLists: Array,
     loading: Boolean
+  },
+  filters: {
+    setTime (time) {
+      return time ? parseTime(time, '{y}-{m}-{d}') : time
+    }
   },
   methods: {
     // 删除药品信息

@@ -20,11 +20,11 @@
       </el-table-column>
       <el-table-column
         prop="mechanismName"
-        label="所属机构">
+        label="机构">
       </el-table-column>
       <el-table-column
         prop="fgroupName"
-        label="所属科室">
+        label="科室">
       </el-table-column>
       <el-table-column
         prop="fnumber"
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import parseTime from '@/utils/parseTime'
 export default {
   name: 'UserList',
   data () {
@@ -61,6 +62,11 @@ export default {
   props: {
     userList: Array,
     loading: Boolean
+  },
+  filters: {
+    setTime (time) {
+      return time ? parseTime(time, '{y}-{m}-{d}') : time
+    }
   },
   methods: {
     editUser (data) {

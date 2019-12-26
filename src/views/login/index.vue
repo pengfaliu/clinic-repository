@@ -1,27 +1,30 @@
+<!--
+- 登陆系统
+-->
 <template>
   <div class="login">
     <div class="content">
       <div class="bg">
         <img :src="require('@/assets/images/login-bg1.png')" alt="">
         <div class="login-logo">
-          <img :src="require('@/assets/images/loginLogo.png')" alt="">
+          <img :src="require('@/assets/images/YWHK1_w.png')" alt="">
         </div>
       </div>
       <div class="form">
         <el-form :model="loginInfo" :rules="loginRules" ref="loginInfo">
-          <el-form-item prop="username">
+          <el-form-item prop="FName">
             <div class="form-item">
               <div class="form-input">
-                <el-input v-model="loginInfo.username" placeholder="请输入帐号">
+                <el-input v-model="loginInfo.FName" placeholder="请输入帐号">
                   <template slot="prepend"><i class="iconfont">&#xe621;</i></template>
                 </el-input>
               </div>
             </div>
           </el-form-item>
-          <el-form-item prop="userpassword">
+          <el-form-item prop="FPassword">
             <div class="form-item">
               <div class="form-input">
-                <el-input v-model="loginInfo.userpassword" type="password" placeholder="请输入密码">
+                <el-input v-model="loginInfo.FPassword" type="password" placeholder="请输入密码">
                   <template slot="prepend"><i class="iconfont">&#xe641;</i></template>
                 </el-input>
               </div>
@@ -46,6 +49,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { login } from '@/api/login'
 export default {
   name: 'login',
   data () {
@@ -53,36 +58,48 @@ export default {
       loginBtn: false,
       size: 'small',
       loginInfo: {
-        username: 'admin',
-        userpassword: '123456'
+        FName: 'admin',
+        FPassword: '123456'
       },
-      checked: true,
+      checked: false,
       loginRules: {
-        username: [
+        FName: [
           { required: true, message: '请输入账户名', trigger: 'blur' }
-        ], 
-        userpassword: [
+        ],
+        FPassword: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ]
       }
     }
+  },
+  computed: {
+    ...mapGetters(['url'])
+  },
+  created () {
+    var _this = this;
+    document.onkeydown = function(e) {
+      let key = window.event.keyCode;
+      if (key == 13) {
+        _this.login('loginInfo')
+      }
+    };
   },
   methods: {
     login (loginInfo) {
       this.loginBtn = true
       this.$refs[loginInfo].validate((valid) => {
         if (valid) {
-          if (this.loginInfo.username === 'admin' && this.loginInfo.userpassword === '123456') {
-            this.$message.success('登录成功')
-            this.$store.dispatch('SetToken', {token: 'token123', checked: this.checked})
-            const _this = this
-            setTimeout(function () {
-              _this.$router.push({path: '/'})
+          login(this.loginInfo).then(res => {
+            console.log(res)
+            if (res.data.data.code === 200) {
+              this.$message.success('登录成功')
+              this.$store.dispatch('SetToken', {token: res.data.data.data.token, checked: this.checked})
+              this.$router.push({path: this.url || '/'})
               this.loginBtn = false
-            }, 200)
-          } else {
-            this.$message.warning('帐号或密码错误')
-          }
+            } else {
+              this.$message.error("登陆失败")
+            }
+          })
         } else {
           return false;
         }
@@ -128,8 +145,8 @@ export default {
       .login-logo {
         position: absolute;
         left: 30%;
-        top: 20%;
-        width: 200px;
+        top: 26%;
+        width: 230px;
       }
     }
     .form {

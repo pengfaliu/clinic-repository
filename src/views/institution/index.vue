@@ -40,6 +40,8 @@ export default {
           this.institutionLists = res.data.data.data.list
           this.pagination = res.data.data.data.pagination
           this.loading = false
+        } else {
+          this.$message.error("加载机构失败")
         }
       })
     },

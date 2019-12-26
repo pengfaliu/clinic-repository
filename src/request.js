@@ -1,13 +1,19 @@
 import axios from 'axios'
+import router from '@/router'
+import { getToken } from '@/utils/auth'
+import DonMessage from './message'
+const address = require('address')
 
 const service = axios.create({
-  baseURL: 'http://192.168.1.15:4000',
+  baseURL: address.ip() ? address.ip() + ':4000' : 'http://localhost:4000',
   timeout: 10000
 })
 
 service.interceptors.request.use(config => {
+  // console.log(config)
   config.headers = {
-    'content-type': 'application/json; charset=utf-8'
+    'content-type': 'application/json; charset=utf-8',
+    'token': getToken()
   }
   // console.log(config)
   return config
@@ -16,6 +22,10 @@ service.interceptors.request.use(config => {
 })
 
 service.interceptors.response.use(response => {
+  if (response.data.code !== 200) {
+    DonMessage.warning('请登录')
+    router.push({name: 'login'})
+  }
   return response
 }, error => {
   return Promise.reject(error)

@@ -34,6 +34,8 @@ export default {
         this.treeData = res.data.data
         this.setFDiseaseTypeID(res.data.data[0].childrens[0].fdiseaseTypeID)
         this.breadcrumbList = [res.data.data[0].fname, res.data.data[0].childrens[0].fname]
+      } else {
+        this.$message.error("加载疾病分裂失败")
       }
     })
   },
@@ -49,6 +51,8 @@ export default {
           this.tableData = res.data.data.data.list
           this.pagination = res.data.data.data.pagination
           this.tableLoading = false
+        } else {
+          this.$message.error("加载疾病列表失败")
         }
       })
     },

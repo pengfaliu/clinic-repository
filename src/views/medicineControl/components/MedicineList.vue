@@ -58,8 +58,9 @@
 </template>
 
 <script>
+import parseTime from '@/utils/parseTime'
 export default {
-  name: 'DiseaseList',
+  name: 'MedicineList',
   data () {
     return {
       msg: ''
@@ -69,6 +70,11 @@ export default {
     lists: Array,
     message: '',
     loading: Boolean
+  },
+  filters: {
+    setTime (time) {
+      return time ? parseTime(time, '{y}-{m}-{d}') : time
+    }
   },
   methods: {
     // 删除

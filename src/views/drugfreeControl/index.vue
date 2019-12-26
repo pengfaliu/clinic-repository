@@ -62,6 +62,8 @@ export default {
           this.medLists = res.data.data.data.list
           this.pagination = res.data.data.data.pagination
           this.loading = false
+        } else {
+          this.$message.error("加载药品列表失败")
         }
       })
     }

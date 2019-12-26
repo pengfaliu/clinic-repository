@@ -1,3 +1,6 @@
+<!--
+- 导航菜单
+-->
 <template>
   <el-scrollbar>
     <logo></logo>

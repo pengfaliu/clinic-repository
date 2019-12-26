@@ -73,9 +73,15 @@ export default {
           this.$store.dispatch('SetUserForm', {})
           this.$parent.getUser()
           if (userForm.fuserid) {
-            this.$message.success("人员信息修改成功")
+            this.$message.success("更新人员成功")
           } else {
             this.$message.success("新增人员成功")
+          }
+        } else {
+          if (userForm.fuserid) {
+            this.$message.error("更新人员成功")
+          } else {
+            this.$message.error("新增人员成功")
           }
         }
       })

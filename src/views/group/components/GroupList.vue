@@ -32,12 +32,16 @@
         label="编码">
       </el-table-column>
       <el-table-column
-        prop="fcreateDate"
         label="创建日期">
+        <template slot-scope="{ row }">
+          {{ row.fcreateDate | setTime() }}
+        </template>
       </el-table-column>
       <el-table-column
-        prop="fmodifyDate"
         label="修改日期">
+        <template slot-scope="{ row }">
+          {{ row.fmodifyDate | setTime() }}
+        </template>
       </el-table-column>
       <el-table-column
         label="操作"
@@ -54,6 +58,7 @@
 <script>
 import { instituDetail } from '@/api/stitution'
 import { delGroup } from '@/api/group'
+import parseTime from '@/utils/parseTime'
 export default {
   name: 'GroupList',
   data() {
@@ -72,6 +77,9 @@ export default {
           return res.data.data.data.fname
         }
       })
+    },
+    setTime (time) {
+      return time ? parseTime(time, '{y}-{m}-{d}') : time
     }
   },
   methods: {
@@ -90,6 +98,8 @@ export default {
           if (res && res.data.data.code === 200) {
             this.$message.success("科室删除成功")
             this.$parent.getGroup()
+          } else {
+            this.$message.error("科室删除失败")
           }
         })
       }).catch(() => {

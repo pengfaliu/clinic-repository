@@ -23,7 +23,7 @@ export function allInstitu() {
 // 修改和新增机构
 export function updateInstitu (req) {
   return request ({
-    url: baseURL + 'updateInstitu',
+    url: baseURL + 'saveAndupdateFMelnstitutionList',
     method: 'POST',
     data: req
   })

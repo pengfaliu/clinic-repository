@@ -135,6 +135,7 @@
 <script>
 import ItemDetail from '@/components/ItemDetail'
 import paging from '@/components/paging'
+import parseTime from '@/utils/parseTime'
 export default {
   name: 'TableInfo',
   components: { ItemDetail, paging },
@@ -153,6 +154,11 @@ export default {
     tableData: Array,
     loading: Boolean,
     pagination: Object
+  },
+  filters: {
+    setTime (time) {
+      return time ? parseTime(time, '{y}-{m}-{d}') : time
+    }
   },
   methods: {
     viewDetail (row) {

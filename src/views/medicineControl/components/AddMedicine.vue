@@ -1,5 +1,5 @@
 <template>
-  <div class="addDisease">
+  <div class="addMedicine">
     <div class="close" title="关闭" @click="addClose"><i class="el-icon-caret-right"></i></div>
     <div class="content">
       <div class="header">
@@ -25,7 +25,7 @@ import BaseInfo from './BaseInfo'
 import ProductLine from './ProductLine'
 import { updateMed } from '@/api/medicine'
 export default {
-  name: 'AddDisease',
+  name: 'AddMedicine',
   components: { BaseInfo, ProductLine },
   data () {
     return {
@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.addDisease {
+.addMedicine {
   position: relative;
   .close {
     height: 100px;

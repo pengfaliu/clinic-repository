@@ -19,8 +19,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import logo1 from '@/assets/images/LOGO.png'
-import logo2 from '@/assets/images/LOGO2.png'
+import logo1 from '@/assets/images/YWHK1.png'
+import logo2 from '@/assets/images/YWHK2.png'
+// import logo1 from '@/assets/images/LOGO.png'
+// import logo2 from '@/assets/images/LOGO2.png'
 export default {
   name: 'logo',
   computed: {
@@ -28,8 +30,8 @@ export default {
   },
   data () {
     return {
-      logo1: logo1,
-      logo2: logo2
+      logo1,
+      logo2
     }
   }
 }

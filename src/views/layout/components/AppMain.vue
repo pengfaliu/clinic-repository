@@ -1,3 +1,6 @@
+<!--
+- 主要页面结构
+-->
 <template>
   <div class="app-main">
     <transition name="fade" mode="out-in">
@@ -16,6 +19,7 @@ export default {
 
 <style>
 .app-main {
-  height: 100%;
+  height: calc(100% - 90px);
+  width: 100%;
 }
 </style>

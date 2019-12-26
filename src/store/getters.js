@@ -1,5 +1,6 @@
 const getters = {
   token: state => state.user.token,
+  url: state => state.user.url,
   sidebar: state => state.app.sidebar,
   fontsize: state => state.app.fontsize,
   historyTabs: state => state.common.historyTabs,
@@ -15,6 +16,9 @@ const getters = {
   userTitle: state => state.system.userTitle,
   userDialog: state => state.system.userDialog,
   userForm: state => state.system.userForm,
+  adviceTitle: state => state.system.adviceTitle,
+  adviceDialog: state => state.system.adviceDialog,
+  adviceForm: state => state.system.adviceForm,
   stitution: state => state.getdata.stitution,
   group: state => state.getdata.group
 }

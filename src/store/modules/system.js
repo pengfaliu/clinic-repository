@@ -8,7 +8,10 @@ const institu = {
     groupForm: {},
     userTitle: '',
     userDialog: false,
-    userForm: {}
+    userForm: {},
+    adviceTitle: '',
+    adviceDialog: false,
+    adviceForm: {}
   },
   mutations: {
     SET_INSTITUTITLE: (state, title) => {
@@ -37,6 +40,15 @@ const institu = {
     },
     SET_USERFORM: (state, data) => {
       state.userForm = JSON.parse(JSON.stringify(data))
+    },
+    SET_ADVICETITLE: (state, title) => {
+      state.adviceTitle = title
+    },
+    SET_ADVICEDIALOG: (state, flag) => {
+      state.adviceDialog = flag
+    },
+    SET_ADVICEFORM: (state, data) => {
+      state.adviceForm = JSON.parse(JSON.stringify(data))
     }
   },
   actions: {
@@ -66,6 +78,15 @@ const institu = {
     },
     SetUserForm ({ commit }, data) {
       commit('SET_USERFORM', data)
+    },
+    SetAdviceTitle ({ commit }, title) {
+      commit('SET_ADVICETITLE', title)
+    },
+    SetAdviceDialog ({ commit }, flag) {
+      commit('SET_ADVICEDIALOG', flag)
+    },
+    SetAdviceForm ({ commit }, data) {
+      commit('SET_ADVICEFORM', data)
     }
   }
 }

@@ -4,42 +4,30 @@ import Vue from 'vue'
 import App from './App'
 import router from '@/router'
 import store from '@/store'
-import ElementUI, { Message } from 'element-ui'
+import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import i18n from './lang'
-
-const showMessage = Symbol('showMessage')
-class DonMessage {
-  success (options, single = true) {
-    this[showMessage]('success', options, single)
-  }
-  warning (options, single = true) {
-    this[showMessage]('warning', options, single)
-  }
-  info (options, single = true) {
-    this[showMessage]('info', options, single)
-  }
-  error (options, single = true) {
-    this[showMessage]('error', options, single)
-  }
-
-  [showMessage] (type, options, single) {
-    if (single) {
-      // 判断是否已存在Message
-      if (document.getElementsByClassName('el-message').length === 0) {
-        Message[type](options)
-      }
-    } else {
-      // Message[type](options)
-    }
-  }
-}
+import DonMessage from './message'
 
 Vue.use(ElementUI, {
   i18n: (key, value) => i18n.t(key, value)
 })
 
-Vue.prototype.$message = new DonMessage()
+// 注册滚动条加载触发事件v-loadmore绑定
+Vue.directive('loadmore', {
+  bind (el, binding) {
+    // 获取element-ui定义好的scroll盒子
+    const SELECTWRAP_DOM = el.querySelector('.el-select-dropdown .el-select-dropdown__wrap')
+    SELECTWRAP_DOM.addEventListener('scroll', function () {
+      const CONDITION = this.scrollHeight - this.scrollTop <= this.clientHeight
+      if (CONDITION) {
+        binding.value()
+      }
+    })
+  }
+})
+
+Vue.prototype.$message = DonMessage
 
 Vue.config.productionTip = false
 

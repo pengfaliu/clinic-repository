@@ -2,10 +2,10 @@
   <div class="diseaseControl">
     <el-form :inline="true" class="demo-form-inline" :size="size">
       <el-form-item>
-        <el-button @click="addInfo('新增')" type="success">添加疾病用药</el-button>
+        <el-button type='danger'>删除选定内容</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button type='danger'>删除选定内容</el-button>
+        <el-button @click="addInfo('新增')" type="success">添加疾病用药</el-button>
       </el-form-item>
       <el-form-item>
         <el-cascader
@@ -22,21 +22,21 @@
         </el-input>
       </el-form-item>
     </el-form>
-    <disease-list :lists="lists" :loading="loading"></disease-list>
-    <add-disease ref="addref" :diseaseTypeLists="diseaseTypeLists" class="addDisease" :class="addFlag ? 'addDiseaseShow' : ''"></add-disease>
+    <medicine-list :lists="lists" :loading="loading"></medicine-list>
+    <add-medicine ref="addref" :diseaseTypeLists="diseaseTypeLists" class="addDisease" :class="addFlag ? 'addDiseaseShow' : ''"></add-medicine>
     <paging :pagination="pagination" @setCurrentPage="setCurrentPage" @setPageSize="setPageSize"></paging>
   </div>
 </template>
 
 <script>
-import AddDisease from './components/AddDisease'
-import DiseaseList from './components/DiseaseList'
+import AddMedicine from './components/AddMedicine'
+import MedicineList from './components/MedicineList'
 import paging from '@/components/paging'
 import { diseaseType } from '@/api/disease'
 import { queryMedListByTypeAndName } from '@/api/medicine'
 export default {
-  name: 'diseaseControl',
-  components: { AddDisease, DiseaseList, paging },
+  name: 'medicineControl',
+  components: { AddMedicine, MedicineList, paging },
   data () {
     return {
       size: 'mini',
@@ -76,6 +76,8 @@ export default {
             }
           }
           this.diseaseTypeLists.push(...data)
+        } else {
+          this.$message.error("加载疾病类型失败")
         }
       })
     },
@@ -87,6 +89,8 @@ export default {
           this.lists = res.data.data.data.list
           this.pagination = res.data.data.data.pagination
           this.loading = false
+        } else {
+          this.$message.error("加载疾病列表失败")
         }
       })
     },
@@ -132,6 +136,8 @@ export default {
           this.lists = res.data.data.data.list
           this.pagination = res.data.data.data.pagination
           this.loading = false
+        } else {
+          this.$message.error("加载药品列表失败")
         }
       })
     }

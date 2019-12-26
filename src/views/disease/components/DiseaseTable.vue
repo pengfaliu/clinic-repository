@@ -76,6 +76,7 @@
 <script>
 import ItemDetail from '@/components/ItemDetail'
 import paging from '@/components/paging'
+import parseTime from '@/utils/parseTime'
 export default {
   name: 'TableInfo',
   components: { ItemDetail, paging },
@@ -94,6 +95,11 @@ export default {
     tableData: Array,
     tableLoading: Boolean,
     pagination: Object
+  },
+  filters: {
+    setTime (time) {
+      return time ? parseTime(time, '{y}-{m}-{d}') : time
+    }
   },
   methods: {
     // 查看疾病详情

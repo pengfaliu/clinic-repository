@@ -50,6 +50,12 @@ export default {
           this.$store.dispatch('SetInstituDialog', false)
           this.$store.dispatch('SetInstituForm', {})
           this.$parent.getStitu()
+        } else {
+          if (stituData.fmeInstitutionID) {
+            this.$message.error('机构修改成功')
+          } else {
+            this.$message.error('机构保存失败')
+          }
         }
       })
     },

@@ -16,7 +16,6 @@ const common = {
       //   state.historyTabs.activeName = list.index
       // } else {
       // }
-      console.log(list)
       state.historyList = list
       router.push({name: 'info'})
     },

@@ -57,6 +57,8 @@ export default {
             }
           }
           this.medTypes.push(...data)
+        } else {
+          this.$message.error("加载药品分类失败")
         }
       })
     },

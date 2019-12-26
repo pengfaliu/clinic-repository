@@ -57,6 +57,8 @@ export default {
       allInstitu().then(res => {
         if (res && res.data.code === 200) {
           this.stituLists = res.data.data
+        } else {
+          this.$message.error("加载机构列表失败")
         }
       })
     },
@@ -73,6 +75,12 @@ export default {
             this.$message.success("新增科室成功")
           }
           this.$parent.getGroup()
+        } else {
+          if (groupForm.fgroupid) {
+            this.$message.error("修改科室失败")
+          } else {
+            this.$message.error("新增科室失败")
+          }
         }
       })
     },

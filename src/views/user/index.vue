@@ -1,3 +1,4 @@
+<!-- 人员管理 -->
 <template>
   <div class="user">
     <user-header></user-header>
@@ -23,7 +24,7 @@ export default {
       pagination: {},
       req: {
         "currentPage": 1,
-        "pageSize": 10,
+        "pageSize": 10
       }
     }
   },
@@ -40,6 +41,8 @@ export default {
           this.userList = res.data.data.data.list
           this.pagination = res.data.data.data.pagination
           this.loading = false
+        } else {
+          this.$message.error("加载人员列表失败")
         }
       })
     },

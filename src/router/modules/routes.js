@@ -85,18 +85,18 @@ const routes = [
           icon: '&#xe609;'
         }
       }, {
-        path: 'disease',
-        name: 'disease',
-        component: () => import('@/views/diseaseControl'),
+        path: 'medicine',
+        name: 'medicine',
+        component: () => import('@/views/medicineControl'),
         meta: {
           title: '药品知识库',
           requireAuth: true,
           icon: '&#xe66b;'
         }
       }, {
-        path: 'bulletin',
-        name: 'bulletin',
-        component: () => import('@/views/drugfreeControl'),
+        path: 'titemadvice',
+        name: 'titemadvice',
+        component: () => import('@/views/titemadviceControl'),
         meta: {
           title: '疾病用药库',
           requireAuth: true,

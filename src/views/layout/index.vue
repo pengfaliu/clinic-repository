@@ -1,7 +1,10 @@
+<!--
+- 页面整体架构
+-->
 <template>
   <div class="app-wrapper">
     <sidebar class="sidebar-container" :class="sidebar.opened ? '' : 'sidebarCurStatus'"></sidebar>
-    <div class="main-container">
+    <div class="main-container" :class="sidebar.opened ? '' : 'mainCurstatus'">
       <navbar></navbar>
       <tags-view></tags-view>
       <app-main v-loading="loading"></app-main>
@@ -42,10 +45,14 @@ export default {
     width: 63px;
   }
   .main-container {
-    width: 100%;
+    width: calc(100% - 210px);
     height: 100%;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s;
+  }
+  .mainCurstatus {
+    width: calc(100% - 63px);
   }
 }
 </style>
